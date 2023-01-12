@@ -18,7 +18,7 @@ target_link_libraries(Pico-Dashboard
     pico_stdlib
 )
 
-# create map/bin/hex file etc.
+# create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(Pico-Dashboard)
 
 # add url via pico_set_program_url
