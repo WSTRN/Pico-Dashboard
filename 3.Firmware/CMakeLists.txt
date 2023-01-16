@@ -16,6 +16,7 @@ file(GLOB_RECURSE SRC_LIST
 	"UserApp/*.cpp"
 	"UserApp/*.c"
 	"LCD/*.c"
+	"USB/*.c"
 )
 add_executable(Pico-Dashboard ${SRC_LIST})
 
@@ -33,6 +34,7 @@ FetchContent_MakeAvailable(lvgl)
 include_directories(
 	Inc
 	LCD
+	USB
 )
 
 target_link_libraries(Pico-Dashboard
@@ -41,6 +43,8 @@ target_link_libraries(Pico-Dashboard
 	hardware_spi
 	hardware_dma
 	pico_multicore
+	tinyusb_device
+	tinyusb_board
 )
 
 # create map/bin/hex/uf2 file in addition to ELF.
