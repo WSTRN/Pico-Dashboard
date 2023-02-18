@@ -49,7 +49,7 @@ int main()
 	lv_init();
 	disp = lv_port();
 	usb_init();
-	main_page();
+	main_page_init();
 
 	timer_irq_set_1ms();
 	multicore_launch_core1(core1_entry);

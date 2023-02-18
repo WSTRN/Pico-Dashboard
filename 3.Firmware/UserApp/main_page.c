@@ -43,7 +43,7 @@ void timer_2s(lv_timer_t * timer)
 		i=0;
 }
 
-void main_page()
+void main_page_init()
 {
 	lv_example_roller_1();
 	lv_timer_create(timer_2s, 2000, NULL);

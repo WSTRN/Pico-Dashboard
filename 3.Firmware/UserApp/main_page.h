@@ -1,4 +1,4 @@
 #pragma once
 
-void main_page();
+void main_page_init();
 
