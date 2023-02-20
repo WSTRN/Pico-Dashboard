@@ -3,4 +3,4 @@
 	url = git@github.com:raspberrypi/pico-sdk.git
 [submodule "2.Software/lv_port_pc_vscode"]
 	path = 2.Software/lv_port_pc_vscode
-	url = git@github.com:lvgl/lv_port_pc_vscode.git
+	url = git@github.com:WSTRN/lv_port_pc_vscode.git
