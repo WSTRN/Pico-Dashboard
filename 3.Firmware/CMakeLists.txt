@@ -42,6 +42,7 @@ target_link_libraries(Pico-Dashboard
 	pico_stdlib
 	hardware_spi
 	hardware_dma
+	hardware_pwm
 	pico_multicore
 	tinyusb_device
 	tinyusb_board

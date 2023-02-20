@@ -1,9 +1,11 @@
+#include "main.h"
 #include "gc9a01a.h"
 #include "hardware/regs/intctrl.h"
 #include "pico/time.h"
 #include "pico/types.h"
 #include "waveshare_rp2040_lcd_1.28.h"
 #include "hardware/gpio.h"
+#include "hardware/pwm.h"
 #include "hardware/spi.h"
 #include "hardware/dma.h"
 #include "hardware/irq.h"
@@ -23,16 +25,22 @@ void lcd_gpio_init()
 	gpio_init(WAVESHARE_RP2040_LCD_RST_PIN);
 	gpio_init(WAVESHARE_RP2040_LCD_DC_PIN);
 	gpio_init(WAVESHARE_RP2040_LCD_CS_PIN);
-	gpio_init(WAVESHARE_RP2040_LCD_BL_PIN);
+	/*gpio_init(WAVESHARE_RP2040_LCD_BL_PIN);*/
 	gpio_set_dir(WAVESHARE_RP2040_LCD_RST_PIN, GPIO_OUT);
 	gpio_set_dir(WAVESHARE_RP2040_LCD_DC_PIN, GPIO_OUT);
 	gpio_set_dir(WAVESHARE_RP2040_LCD_CS_PIN, GPIO_OUT);
-	gpio_set_dir(WAVESHARE_RP2040_LCD_BL_PIN, GPIO_OUT);
+	/*gpio_set_dir(WAVESHARE_RP2040_LCD_BL_PIN, GPIO_OUT);*/
+	gpio_set_function(WAVESHARE_RP2040_LCD_BL_PIN, GPIO_FUNC_PWM);
+	uint bl_slice_num = pwm_gpio_to_slice_num(WAVESHARE_RP2040_LCD_BL_PIN);
+	pwm_config bl_config = pwm_get_default_config();
+	pwm_config_set_clkdiv(&bl_config, 2);
+	pwm_init(bl_slice_num, &bl_config, true);
+	pwm_set_gpio_level(WAVESHARE_RP2040_LCD_BL_PIN, BL_value * BL_value);//square the value to make brightness appear more linear
 	
 	gpio_put(WAVESHARE_RP2040_LCD_DC_PIN, 0);
 	gpio_put(WAVESHARE_RP2040_LCD_CS_PIN, 1);
-	gpio_put(WAVESHARE_RP2040_LCD_BL_PIN, 1);
     gpio_put(WAVESHARE_RP2040_LCD_RST_PIN, 1);
+	/*gpio_put(WAVESHARE_RP2040_LCD_BL_PIN, 1);*/
 }
 
 void lcd_reset()
