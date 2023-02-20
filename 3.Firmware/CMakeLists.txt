@@ -17,6 +17,7 @@ file(GLOB_RECURSE SRC_LIST
 	"UserApp/*.c"
 	"LCD/*.c"
 	"USB/*.c"
+	"Src/*.c"
 )
 add_executable(Pico-Dashboard ${SRC_LIST})
 
