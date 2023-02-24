@@ -18,6 +18,7 @@ file(GLOB_RECURSE SRC_LIST
 	"LCD/*.c"
 	"USB/*.c"
 	"Src/*.c"
+	"LFS/*.c"
 )
 add_executable(Pico-Dashboard ${SRC_LIST})
 
@@ -36,18 +37,24 @@ include_directories(
 	Inc
 	LCD
 	USB
+	LFS
 )
 
 target_link_libraries(Pico-Dashboard
 	PRIVATE lvgl::lvgl
-	pico_stdlib
 	hardware_spi
 	hardware_dma
 	hardware_pwm
+	hardware_flash
+	pico_stdlib
 	pico_multicore
 	tinyusb_device
 	tinyusb_board
 )
+target_link_options(Pico-Dashboard PRIVATE
+	-Wl,--print-memory-usage
+	)
+
 
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(Pico-Dashboard)

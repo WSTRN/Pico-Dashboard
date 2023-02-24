@@ -19,6 +19,7 @@
 #include "pico/multicore.h"
 #include "usbcdc.h"
 #include "main_page.h"
+#include "filesystem.h"
 
 #define gpio 3
 #define PLL_SYS_KHZ (133 * 1000)
@@ -50,9 +51,11 @@ int main()
 	disp = lv_port();
 	usb_init();
 	main_page_init();
+	LittleFS_init();
 
 	timer_irq_set_1ms();
 	multicore_launch_core1(core1_entry);
+
 	while(1)
     {
 		lv_timer_handler();
