@@ -11,7 +11,7 @@ project(Pico-Dashboard)
 pico_sdk_init()
 
 # rest of your project
-add_definitions(-DLFS_THREADSAFE)
+add_definitions(-DLFS_THREADSAFE -DCFG_MSC_READONLY)
 file(GLOB_RECURSE SRC_LIST 
 	"UserApp/*.cpp"
 	"UserApp/*.c"

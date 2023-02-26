@@ -8,8 +8,6 @@
 #include "lvgl.h"
 #include "hardware/timer.h"
 #include "hardware/irq.h"
-#include <src/misc/lv_timer.h>
-#include <src/widgets/lv_roller.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <ctype.h>
@@ -58,8 +56,9 @@ int main()
 
 	while(1)
     {
-		lv_timer_handler();
-		sleep_ms(2);
+		/*lv_timer_handler();*/
+		lv_timer_handler_run_in_period(5);
+		sleep_ms(5);
     }
 }
 
