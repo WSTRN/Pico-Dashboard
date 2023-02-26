@@ -6,7 +6,7 @@
 #include "stdio.h"
 
 // 128K of space for file system at top of pico flash
-#define FS_SIZE (128 * 1024)
+#define FS_SIZE (1024 * 1024)
 
 // hal function prototypes
 static int pico_read(const struct lfs_config* c, lfs_block_t block, lfs_off_t off, void* buffer,
@@ -15,6 +15,9 @@ static int pico_prog(const struct lfs_config* c, lfs_block_t block, lfs_off_t of
                      const void* buffer, lfs_size_t size);
 static int pico_erase(const struct lfs_config* c, lfs_block_t block);
 static int pico_sync(const struct lfs_config* c);
+static int pico_lock(const struct lfs_config *c);
+static int pico_unlock(const struct lfs_config *c);
+
 
 // configuration of the filesystem is provided by this struct
 // for Pico: prog size = 256, block size = 4096, so cache is 8K
@@ -25,6 +28,10 @@ static const struct lfs_config cfg = {
     .prog = pico_prog,
     .erase = pico_erase,
     .sync = pico_sync,
+#if LFS_THREADSAFE
+    .lock = pico_lock,
+    .unlock = pico_unlock,
+#endif
     // block device configuration
     .read_size = 1,
     .prog_size = FLASH_PAGE_SIZE,
@@ -69,6 +76,22 @@ static int pico_sync(const struct lfs_config* c) {
     // nothing to do!
     return 0;
 }
+
+#if LIB_PICO_MULTICORE
+
+static recursive_mutex_t fs_mtx;
+
+static int pico_lock(const struct lfs_config *c) {
+    recursive_mutex_enter_blocking(&fs_mtx);
+    return LFS_ERR_OK;
+}
+
+static int pico_unlock(const struct lfs_config *c) {
+    recursive_mutex_exit(&fs_mtx);
+    return LFS_ERR_OK;
+}
+#endif
+
 
 // increment the boot count with each invocation
 lfs_size_t boot_count;

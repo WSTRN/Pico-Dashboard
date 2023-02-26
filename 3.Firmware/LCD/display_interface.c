@@ -9,8 +9,8 @@
 static lv_disp_draw_buf_t disp_buf;
 
 /*Static or global buffer(s). The second buffer is optional*/
-static lv_color_t buf_1[240 * 20];
-static lv_color_t buf_2[240 * 20];
+static lv_color_t buf_1[240 * 60];
+static lv_color_t buf_2[240 * 60];
 
 lv_disp_drv_t disp_drv;          /*A variable to hold the drivers. Must be static or global.*/
 
@@ -26,7 +26,7 @@ void flush_cb(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * col
 lv_disp_t* lv_port()
 {
 	/*Initialize `disp_buf` with the buffer(s). With only one buffer use NULL instead buf_2 */
-	lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, 240 * 20);
+	lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, 240 * 60);
 	lv_disp_drv_init(&disp_drv);            /*Basic initialization*/
 	disp_drv.draw_buf = &disp_buf;          /*Set an initialized buffer*/
 	disp_drv.flush_cb = flush_cb;        /*Set a flush callback to draw to the display*/
