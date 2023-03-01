@@ -19,6 +19,7 @@ file(GLOB_RECURSE SRC_LIST
 	"USB/*.c"
 	"Src/*.c"
 	"LFS/*.c"
+	"Protocol/*.c"
 )
 add_executable(Pico-Dashboard ${SRC_LIST})
 
@@ -38,6 +39,7 @@ include_directories(
 	LCD
 	USB
 	LFS
+	Protocol
 )
 
 target_link_libraries(Pico-Dashboard
