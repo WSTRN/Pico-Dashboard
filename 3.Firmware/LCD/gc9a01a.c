@@ -43,6 +43,11 @@ void lcd_gpio_init()
 	/*gpio_put(WAVESHARE_RP2040_LCD_BL_PIN, 1);*/
 }
 
+void lcd_set_brightness(uint8_t b)
+{
+	pwm_set_gpio_level(WAVESHARE_RP2040_LCD_BL_PIN, b*b);
+}
+
 void lcd_reset()
 {
     gpio_put(WAVESHARE_RP2040_LCD_RST_PIN, 1);

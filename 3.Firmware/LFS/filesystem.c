@@ -22,7 +22,7 @@ static int pico_unlock(const struct lfs_config *c);
 // configuration of the filesystem is provided by this struct
 // for Pico: prog size = 256, block size = 4096, so cache is 8K
 // minimum cache = block size, must be multiple
-static const struct lfs_config cfg = {
+const struct lfs_config cfg = {
     // block device operations
     .read = pico_read,
     .prog = pico_prog,

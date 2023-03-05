@@ -49,6 +49,8 @@ target_link_libraries(Pico-Dashboard
 	hardware_pwm
 	hardware_flash
 	pico_stdlib
+	pico_malloc
+	pico_util
 	pico_multicore
 	tinyusb_device
 	tinyusb_board

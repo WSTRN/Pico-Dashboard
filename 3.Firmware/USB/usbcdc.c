@@ -6,6 +6,7 @@
 #include "pico/bootrom.h"
 #include "tusb.h"
 #include "protocol.h"
+#include <stdint.h>
 
 void usb_init()
 {
@@ -15,6 +16,7 @@ void usb_init()
 }
 
 static uint8_t usb_cdc_buf[150];
+char cr='\n';
 void cdc_task(void)
 {
     if (tud_cdc_available())
@@ -24,6 +26,8 @@ void cdc_task(void)
 		usb_server_task();
 
 		tud_cdc_write(usb_cdc_buf, count);
+		if(usb_cdc_buf[0] == '\r')
+			tud_cdc_write(&cr, 1);
 		tud_cdc_write_flush();
     }
 }
