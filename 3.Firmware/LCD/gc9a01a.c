@@ -35,7 +35,7 @@ void lcd_gpio_init()
 	pwm_config bl_config = pwm_get_default_config();
 	pwm_config_set_clkdiv(&bl_config, 2);
 	pwm_init(bl_slice_num, &bl_config, true);
-	pwm_set_gpio_level(WAVESHARE_RP2040_LCD_BL_PIN, BL_value * BL_value);//square the value to make brightness appear more linear
+	pwm_set_gpio_level(WAVESHARE_RP2040_LCD_BL_PIN, 0);//square the value to make brightness appear more linear
 	
 	gpio_put(WAVESHARE_RP2040_LCD_DC_PIN, 0);
 	gpio_put(WAVESHARE_RP2040_LCD_CS_PIN, 1);
